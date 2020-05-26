@@ -1,0 +1,32 @@
+@phenix-american {
+  font-family: 'phenix-american';
+  src: url('../Media/phenix-american.woff') format('woff');
+}
+body {
+  background-color: #040d14;
+  display: flex;
+  width: 90%;
+}
+body .logo {
+  display: flex;
+}
+body .logo h1 {
+  color: white;
+  font-family: 'phenix-american';
+}
+body .logo a {
+  width: 10%;
+}
+body .logo a img {
+  width: 100%;
+  min-width: 50px;
+}
+body nav {
+  display: flex;
+  align-content: flex-end;
+}
+body nav a {
+  margin: 0 10%;
+  text-decoration: none;
+  color: white;
+}

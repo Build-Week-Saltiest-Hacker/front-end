@@ -1,0 +1,51 @@
+header {
+  background-color: #040d14;
+  display: flex;
+  width: 90%;
+  border-bottom: dashed #2c3236 2px;
+}
+header .logo {
+  display: flex;
+}
+header .logo h1 {
+  color: white;
+  font-family: 'phenix-american';
+}
+header .logo a {
+  width: 10%;
+}
+header .logo a img {
+  width: 100%;
+  min-width: 50px;
+}
+header nav {
+  display: flex;
+  align-content: flex-end;
+}
+header nav a {
+  margin: 0 10%;
+  text-decoration: none;
+  color: white;
+}
+body {
+  background-color: #040d14;
+}
+body .main {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
+body .main .salt-shaker {
+  margin: auto;
+}
+body .main .search {
+  display: flex;
+  margin: 0rem auto 2rem auto;
+}
+body .main .search .salt-search {
+  width: 20rem;
+  border-radius: 15px;
+  border: 1px solid #033211;
+  padding: 0 2rem;
+  height: 2rem;
+}

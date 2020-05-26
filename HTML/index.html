@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="../CSS/news_scroll.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="../css/index.css">
+    <script src="../comments.js"></script>
+    <!-- <script src="//code.jquery.com/jquery.min.js"></script>
+    <script>
+        $.get("header.html", function(data){
+            $("#nav-placeholder").replaceWith(data);
+        });
+    </script> -->
+</head>
+<body>
+    <header>
+        <div class='logo'>
+            <a href = #><img src= '../Media/face.png'></a>
+            <h1>got salt?</h1>
+        </div>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">About</a> 
+            <a href="#">Contact</a>
+            <a href="#">Login</a>
+        </nav>
+    </header>
+    <!-- <div id='nav-placeholder'></div> -->
+    <section class='main'>
+        <div class='salt-shaker'>
+            <img src='../Media/salt.png'>
+        </div>
+        <div class='search'>
+            <input class='salt-search' type="text" placeholder="Go salt mining...">
+        </div>
+        <!-- Script credits to: https://allwebco-templates.com/support/S_script_IFrame-NewsScroll.htm -->
+        <!-- START SCROLLING NEWS WINDOW -->
+        <div id="news_iframe_scroll">
+            <div class="news_scroll-title">
+                Fresh Salt<br>
+            </div>
+            <iframe name="NewsIFrame" src="news_scroll.html" frameborder="0" scrolling="no"></iframe>
+        </div>
+        <!-- END SCROLLING NEWS WINDOW -->
+    </section>
+</body>
+</html>
