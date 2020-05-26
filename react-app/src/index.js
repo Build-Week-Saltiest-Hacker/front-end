@@ -12,7 +12,7 @@ import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 
 //Middleware
-import { thunk } from 'redux-thunk'
+import thunk from 'redux-thunk'
 
 //Reducers
 import rootReducer from './store/reducers'
