@@ -1,9 +1,13 @@
 import React from 'react'
 import UserDashboard from './components/UserDashboard'
+import Navbar from './components/Navbar'
 
 function App() {
   return (
-    <UserDashboard />
+    <>
+      <Navbar />
+      <UserDashboard />
+    </>
   )
 }
 
