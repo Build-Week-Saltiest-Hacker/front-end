@@ -10,7 +10,7 @@ export const handleLogin = credentials => {
             .post('/login', credentials)
             .then(res => {
                 console.log({ res })
-                dispatch({ type: LOGIN_SUCCESSFUL, payload: res.data.token })
+                dispatch({ type: LOGIN_SUCCESSFUL })
                 window.localStorage.setItem('token', JSON.stringify(res.data.token))
             })
             .catch(err => console.log({ err }))

@@ -126,7 +126,7 @@ function App() {
         {/* Start of Home page nav links */}
         <Link to='/'>Login</Link>
 
-        <Link to='/Form'>Register</Link>
+        <Link to='/Registration'>Register</Link>
         {/* End of Home page nav links */}
 
 
@@ -135,7 +135,7 @@ function App() {
           <Login
             validateChange={validateChange}
             onCheckboxChange={onCheckboxChange}
-            onSubmit={onSubmit}
+            onSubmit={onLogin}
             disabled={disabled}
             errors={errors}
             values={formState}
@@ -145,7 +145,7 @@ function App() {
 
 
         {/* start of registration */}
-        <Route exact path='/Form' >
+        <Route exact path='/Registration' >
           <Form
 
             validateChange={validateChange}

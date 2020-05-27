@@ -1,4 +1,5 @@
 import React from 'react';
+import { Route, Switch, Link } from 'react-router-dom';
 
 //start of my Form\\
 export default function Login(props) {
@@ -10,7 +11,6 @@ export default function Login(props) {
         errors,
         onCheckboxChange,
         disabled,
-        onLogin,
 
     } = props;
 
@@ -18,7 +18,7 @@ export default function Login(props) {
 
     return (
 
-        <form className='form container' onSubmit={onLogin}>
+        <form className='form container' onSubmit={onSubmit}>
             <div>
                 <h2>Login page </h2>
                 {/* rendering validation errors here */}
@@ -50,8 +50,7 @@ export default function Login(props) {
 
                 {/* email */}
 
-                {/* not needed  
-*/}
+                {/* not needed */}
                 {/* password */}
                 <div>
                     <label>Password&nbsp;
@@ -69,7 +68,16 @@ export default function Login(props) {
                 {/* not needed */}
                 {/* Submit Button */}
 
-                <button disabled={disabled}> Login </button>
+                <button > Login </button>
+
+
+                <Link to="/registration">
+                    <button type="button">
+                        Register
+                </button>
+                </Link>
+
+
 
             </div>
         </form>

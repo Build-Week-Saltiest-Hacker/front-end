@@ -5,7 +5,6 @@ import {
 } from '../actions'
 
 export const initialState = {
-    token: '',
     commentList: [],
     savedComments: [],
     userInfo: null,
@@ -24,7 +23,6 @@ export const appReducer = (state = initialState, action) => {
         case LOGIN_SUCCESSFUL:
             return {
                 ...state,
-                token: action.payload,
                 isFetching: false
             }
 
