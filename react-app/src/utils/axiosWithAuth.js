@@ -9,6 +9,6 @@ export const axiosWithAuth = () => {
         headers: {
             Authorization: token
         },
-        baseURL: 'https://reqres.in/api'
+        baseURL: 'https://saltiest-hacker-lambda.herokuapp.com/api'
     })
 }
