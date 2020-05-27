@@ -1,19 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Route, Switch, Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import * as yup from 'yup';
 import formValidate from './FormValidate'
 
+
 //start of my Form\\
-export default function Form(props) {
+export default function Form() {
 
-    const {
-        values,
-
+    const { push } = useHistory()
 
 
-    } = props;
-    
     //start of consts\\ 
     const initialError = {
         username: '',
@@ -30,25 +27,22 @@ export default function Form(props) {
     const initialUsername = []
     const initialDisabled = true
     //~~~~~~~~~~~~~~~~~~STATES~~~~~~~~~~~~~~~~~~\\
-    const [username, setUsername] = useState(initialUsername)
-    const [disabled, setDisabled] = useState(initialDisabled)
-    const [formState, setFormState] = useState(initialFormState);
 
-    const [errors, setErrors] = useState(initialError);
+    const [disabled, setDisabled] = useState(initialDisabled)
+    const [formState, setFormState] = useState(initialFormState)
+    const [errors, setErrors] = useState(initialError)
     //~~~~~~~~~~~~~~~~~~start of post~~~~~~~~~~~~~~~~~~\\
 
     const postNewUsername = newUsername => {
 
-        axios.post('https://reqres.in/api/users', newUsername)
+        axios.post('https://cors-anywhere.herokuapp.com/https://saltiest-hacker-lambda.herokuapp.com/api/auth/register', newUsername)
             .then(res => {
-                setUsername([res.data, ...username])
+                push('/')
+                console.log(res)
 
             })
             .catch(err => {
-                debugger
-            })
-            .finally(() => {
-                setFormState(initialFormState)
+                console.log(err)
             })
     }
 
@@ -192,7 +186,7 @@ export default function Form(props) {
                         Already a user?
                 </button>
                 </Link>
-                {username.map(user => {
+                {/* {username.map(user => {
                     return (
                         <div key={user.id}>
                             <h3> {user.username} </h3>
@@ -202,7 +196,7 @@ export default function Form(props) {
 
 
                 }
-                )}
+                )} */}
             </div>
         </form>
 

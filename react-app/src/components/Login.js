@@ -5,13 +5,9 @@ import * as yup from 'yup';
 import formValidate from './FormValidate'
 
 //start of my Form\\
-export default function Login(props) {
-
-    const {
-        values,
+export default function Login() {
 
 
-    } = props;
     //start of consts\\ 
     const initialError = {
         username: '',
@@ -28,25 +24,21 @@ export default function Login(props) {
     const initialUsername = []
     const initialDisabled = true
     //~~~~~~~~~~~~~~~~~~STATES~~~~~~~~~~~~~~~~~~\\
-    const [username, setUsername] = useState(initialUsername)
+    // const [username, setUsername] = useState(initialUsername)
     const [disabled, setDisabled] = useState(initialDisabled)
-    const [formState, setFormState] = useState(initialFormState);
-
-    const [errors, setErrors] = useState(initialError);
+    const [formState, setFormState] = useState(initialFormState)
+    const [errors, setErrors] = useState(initialError)
     //~~~~~~~~~~~~~~~~~~start of post~~~~~~~~~~~~~~~~~~\\
 
     const postNewUsername = newUsername => {
 
-        axios.post('https://reqres.in/api/users', newUsername)
+        axios.post('https://cors-anywhere.herokuapp.com/https://saltiest-hacker-lambda.herokuapp.com/api/auth/login', newUsername)
             .then(res => {
-                setUsername([res.data, ...username])
+                console.log(res)
 
             })
             .catch(err => {
                 debugger
-            })
-            .finally(() => {
-                setFormState(initialFormState)
             })
     }
 
@@ -161,7 +153,7 @@ export default function Login(props) {
 
 
                 <Link to="/registration">
-                    <button type="button">
+                    <button type="submit">
                         Not registered?
                     </button>
                 </Link>

@@ -1,0 +1,49 @@
+* {
+    box-sizing: border-box;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    margin: 0;
+    padding: 1%;
+    background: darkblue;
+    color: #fff;
+}
+
+.navbar a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.container {
+    width: 80%;
+    margin: 5% auto;
+}
+
+button {
+    margin: 2%;
+    border: 1px solid #000;
+    border-radius: 7px;
+    padding: 1%;
+    box-shadow: 1px 1px 6px #444;
+    text-align: center;
+    outline: none;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+button:active {
+    box-shadow: none;
+}
