@@ -1,19 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Route, Switch, Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import * as yup from 'yup';
 import formValidate from './FormValidate'
 
 //start of my Form\\
-export default function Form(props) {
+export default function Form() {
 
-    const {
-        values,
+    const { push } = useHistory()
 
-
-
-    } = props;
-    
     //start of consts\\ 
     const initialError = {
         username: '',
@@ -27,10 +22,9 @@ export default function Form(props) {
         password: '',
         TOS: false,
     }
-    const initialUsername = []
+
     const initialDisabled = true
     //~~~~~~~~~~~~~~~~~~STATES~~~~~~~~~~~~~~~~~~\\
-    const [username, setUsername] = useState(initialUsername)
     const [disabled, setDisabled] = useState(initialDisabled)
     const [formState, setFormState] = useState(initialFormState);
 
@@ -39,17 +33,14 @@ export default function Form(props) {
 
     const postNewUsername = newUsername => {
 
-        axios.post('https://reqres.in/api/users', newUsername)
+        axios.post('https://cors-anywhere.herokuapp.com/https://saltiest-hacker-lambda.herokuapp.com/api/auth/register/auth', newUsername)
             .then(res => {
-                setUsername([res.data, ...username])
-
+                push('/')
             })
             .catch(err => {
-                debugger
+                console.log(err)
             })
-            .finally(() => {
-                setFormState(initialFormState)
-            })
+
     }
 
     //~~~~~~~~~~~~~~~~~~ Event Handlers ~~~~~~~~~~~~~~~~~~\\
@@ -192,17 +183,6 @@ export default function Form(props) {
                         Already a user?
                 </button>
                 </Link>
-                {username.map(user => {
-                    return (
-                        <div key={user.id}>
-                            <h3> {user.username} </h3>
-                            <h3> {user.email} </h3>
-                        </div>
-                    )
-
-
-                }
-                )}
             </div>
         </form>
 

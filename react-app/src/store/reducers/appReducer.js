@@ -1,14 +1,16 @@
 import {
     LOGIN_START,
-    LOGIN_SUCCESSFUL
+    LOGIN_SUCCESSFUL,
+    LOGIN_FAILURE
 
 } from '../actions'
 
 export const initialState = {
+    username: '',
     commentList: [],
     savedComments: [],
     userInfo: null,
-    isFetching: false
+    isLoggingIn: false
 }
 
 export const appReducer = (state = initialState, action) => {
@@ -17,13 +19,20 @@ export const appReducer = (state = initialState, action) => {
         case LOGIN_START:
             return {
                 ...state,
-                isFetching: true
+                isLoggingIn: true
             }
 
         case LOGIN_SUCCESSFUL:
             return {
                 ...state,
-                isFetching: false
+                isLoggingIn: false,
+                username: action.payload
+            }
+
+        case LOGIN_FAILURE:
+            return {
+                ...state,
+                isLoggingIn: false
             }
 
         default:

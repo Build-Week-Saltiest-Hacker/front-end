@@ -1,16 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { Route, Switch, Link } from 'react-router-dom';
-import axios from 'axios';
+import { Link, useHistory } from 'react-router-dom';
 import * as yup from 'yup';
 import formValidate from './FormValidate'
 
+//connect to Redux
+import { connect } from 'react-redux'
+import { handleLogin } from '../store/actions/index'
+
 //start of my Form\\
-export default function Login(props) {
+function Login(props) {
 
     const {
-        values,
+        isLoggingIn,
+        handleLogin
 
-    } = props;
+    } = props
+
+    const { push } = useHistory()
+
     //start of consts\\ 
     const initialError = {
         username: '',
@@ -24,10 +31,8 @@ export default function Login(props) {
         password: '',
 
     }
-    const initialUsername = []
     const initialDisabled = true
     //~~~~~~~~~~~~~~~~~~STATES~~~~~~~~~~~~~~~~~~\\
-    const [username, setUsername] = useState(initialUsername)
     const [disabled, setDisabled] = useState(initialDisabled)
     const [formState, setFormState] = useState(initialFormState);
 
@@ -36,17 +41,8 @@ export default function Login(props) {
 
     const postNewUsername = newUsername => {
 
-        axios.post('https://reqres.in/api/users', newUsername)
-            .then(res => {
-                setUsername([res.data, ...username])
+        handleLogin(newUsername, push)
 
-            })
-            .catch(err => {
-                debugger
-            })
-            .finally(() => {
-                setFormState(initialFormState)
-            })
     }
 
     //~~~~~~~~~~~~~~~~~~ Event Handlers ~~~~~~~~~~~~~~~~~~\\
@@ -82,8 +78,7 @@ export default function Login(props) {
     //~~~~~~~~~~~~~~~~~~ END Validation~~~~~~~~~~~~~~~~~~ \\
     //start of checkbox change\\
     const onCheckboxChange = evt => {
-        const { name } = evt.target
-        const { checked } = evt.target
+        const { name, checked } = evt.target
         setFormState({
             ...formState, [name]: checked,
         })
@@ -95,9 +90,7 @@ export default function Login(props) {
     const onLogin = evt => {
         // debugger
         evt.preventDefault() //prevents from refreshing
-
-
-
+        postNewUsername(formState)
 
     }
 
@@ -151,26 +144,37 @@ export default function Login(props) {
 
 
                 {/* Submit Button */}
+                {isLoggingIn ?
+                    <p>Logging In...</p> :
 
-                <button
-                    name='login'
-                    type='button'
-                > Login
+                    <div>
+                        <button
+                            name='login'
+
+                        > Login
                 </button>
 
 
-                <Link to="/registration">
-                    <button type="button">
-                        Not registered?
+                        <Link to="/registration">
+                            <button type="button">
+                                Not registered?
                     </button>
-                </Link>
+                        </Link>
 
-
-
+                    </div>
+                }
             </div>
         </form>
 
     )
 }
+
+const mapStateToProps = state => {
+    return {
+        isLoggingIn: state.appReducer.isLoggingIn
+    }
+}
+
+export default connect(mapStateToProps, { handleLogin })(Login)
 
         //end of my form\\
