@@ -123,7 +123,7 @@ const onLogin = evt => {
          {/* Start of Home page nav links */}
           <Link to='/'>Login</Link>
   
-          <Link to='/Form'>Register</Link>
+          <Link to='/Registration'>Register</Link>
            {/* End of Home page nav links */}
 
 
@@ -142,7 +142,7 @@ const onLogin = evt => {
 
 
               {/* start of registration */}
-              <Route exact path='/Form' >     
+              <Route exact path='/Registration' >     
                <Form                
 
                          validateChange={validateChange}
