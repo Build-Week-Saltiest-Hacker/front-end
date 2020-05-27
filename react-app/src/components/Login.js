@@ -10,7 +10,6 @@ export default function Login(props) {
     const {
         values,
 
-
     } = props;
     //start of consts\\ 
     const initialError = {
@@ -121,7 +120,7 @@ export default function Login(props) {
 
 
                 <h4> Login credentials</h4>
-                
+
                 {/* name  */}
                 <div>
                     <label> UserName&nbsp;
@@ -137,7 +136,7 @@ export default function Login(props) {
                     </label>
                 </div>
 
-           
+
                 {/* password */}
                 <div>
                     <label>Password&nbsp;
@@ -151,7 +150,7 @@ export default function Login(props) {
                         />
                     </label>
                 </div>
-              
+
 
                 {/* Submit Button */}
 
