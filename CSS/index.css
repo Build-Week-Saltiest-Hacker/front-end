@@ -9,16 +9,22 @@ header {
   width: 100%;
   border-bottom: dashed #2c3236 2px;
 }
+@media (max-width: 500px) {
+  header {
+    flex-direction: column;
+  }
+}
 header .logo {
   display: flex;
 }
 header .logo h1 {
   color: white;
   font-family: 'gotFont';
-  font-size: 3rem;
-  height: 1rem;
+  font-size: 3.3rem;
+  height: 0.1rem;
   margin: 0.4rem;
-  letter-spacing: 0.2rem;
+  letter-spacing: 0.5rem;
+  min-width: 12rem;
 }
 header .logo a {
   width: 3.5rem;
@@ -28,16 +34,34 @@ header .logo a img {
 }
 header nav {
   display: flex;
-  width: 30%;
+  justify-content: space-between;
   margin-top: 2rem;
 }
+@media (max-width: 500px) {
+  header nav {
+    justify-content: center;
+    margin: auto;
+    width: 95%;
+  }
+}
 header nav a {
-  margin: 0 5%;
+  width: 50%;
+  padding: 0 1.5rem;
   text-decoration: none;
   color: white;
   font-size: 1.2rem;
   height: 2rem;
   font-family: Oswald;
+}
+@media (max-width: 500px) {
+  header nav a {
+    padding: none;
+    width: 20%;
+    height: auto;
+  }
+}
+header nav a:hover {
+  background-color: #033211;
 }
 body {
   background-color: #040d14;
@@ -53,6 +77,11 @@ body .main .salt-shaker {
 body .main .salt-shaker img {
   width: 30rem;
 }
+@media (max-width: 500px) {
+  body .main .salt-shaker img {
+    width: 15rem;
+  }
+}
 body .main .search {
   display: flex;
   margin: 0rem auto 2rem auto;
@@ -65,8 +94,19 @@ body .main .search .salt-search {
   padding: 0 4rem;
   height: 3rem;
 }
+@media (max-width: 500px) {
+  body .main .search .salt-search {
+    width: 10rem;
+    height: 2rem;
+  }
+}
 body .main .search img {
   position: absolute;
   width: 3.5rem;
   margin-left: 0.5rem;
+}
+@media (max-width: 500px) {
+  body .main .search img {
+    width: 2.5rem;
+  }
 }
