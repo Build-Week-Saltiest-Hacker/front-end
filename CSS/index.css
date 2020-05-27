@@ -1,7 +1,12 @@
+@font-face {
+  font-family: 'gotFont';
+  src: url('../Media/phenix-american.woff') format('woff');
+}
 header {
   background-color: #040d14;
   display: flex;
-  width: 90%;
+  justify-content: start;
+  width: 100%;
   border-bottom: dashed #2c3236 2px;
 }
 header .logo {
@@ -9,23 +14,30 @@ header .logo {
 }
 header .logo h1 {
   color: white;
-  font-family: 'phenix-american';
+  font-family: 'gotFont';
+  font-size: 3rem;
+  height: 1rem;
+  margin: 0.4rem;
+  letter-spacing: 0.2rem;
 }
 header .logo a {
-  width: 10%;
+  width: 3.5rem;
 }
 header .logo a img {
   width: 100%;
-  min-width: 50px;
 }
 header nav {
   display: flex;
-  align-content: flex-end;
+  width: 30%;
+  margin-top: 2rem;
 }
 header nav a {
-  margin: 0 10%;
+  margin: 0 5%;
   text-decoration: none;
   color: white;
+  font-size: 1.2rem;
+  height: 2rem;
+  font-family: Oswald;
 }
 body {
   background-color: #040d14;
@@ -38,14 +50,23 @@ body .main {
 body .main .salt-shaker {
   margin: auto;
 }
+body .main .salt-shaker img {
+  width: 30rem;
+}
 body .main .search {
   display: flex;
   margin: 0rem auto 2rem auto;
 }
 body .main .search .salt-search {
-  width: 20rem;
-  border-radius: 15px;
+  width: 25rem;
+  border-radius: 30px;
+  font-size: 1.1rem;
   border: 1px solid #033211;
-  padding: 0 2rem;
-  height: 2rem;
+  padding: 0 4rem;
+  height: 3rem;
+}
+body .main .search img {
+  position: absolute;
+  width: 3.5rem;
+  margin-left: 0.5rem;
 }
