@@ -12,7 +12,7 @@ const Navbar = props => {
     }
 
     return (
-        <nav>
+        <nav className="navbar">
             <h2>Salty Trolls</h2>
             {username && <h2>Welcome, {username}</h2>}
             <Link onClick={logOut} to="/">{true ? 'Log Out' : 'Log In'}</Link>

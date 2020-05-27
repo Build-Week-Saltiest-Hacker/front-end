@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { Route, Switch, Link } from 'react-router-dom';
+import { Route, useHistory } from 'react-router-dom';
 import Login from './components/Login';
 import Form from './components/Form';
 import axios from 'axios';
 import * as yup from 'yup';
 import formValidate from './components/FormValidate'
+import UserDashboard from './components/UserDashboard'
+import ProtectedRoute from './components/ProtectedRoute'
+import Navbar from './components/Navbar';
+
+import './index.css'
 
 function App() {
+
+  const { push } = useHistory()
   //start of consts\\ 
   const initialError = {
     username: '',
@@ -36,10 +43,11 @@ function App() {
       .then(res => {
         console.log({ res })
         setUsername([res.data, ...username])
+        push('/')
 
       })
       .catch(err => {
-        debugger
+        console.log(err.response)
       })
       .finally(() => {
         setFormState(initialFormState)
@@ -108,7 +116,11 @@ function App() {
     // debugger
     evt.preventDefault() //prevents from refreshing
     axios.post('https://cors-anywhere.herokuapp.com/https://saltiest-hacker-lambda.herokuapp.com/api/auth/login', formState)
-      .then(res => console.log({ res }))
+      .then(res => {
+        window.localStorage.setItem('token', res.data.token)
+        const username = res.data.message.split(' ')[0]
+        push(`/dashboard/${username}`)
+      })
       .catch(err => console.log(err))
 
 
@@ -121,57 +133,47 @@ function App() {
 
 
     <div className="App">
-      <header className="App-header">
-
-        {/* Start of Home page nav links */}
-        <Link to='/'>Login</Link>
-
-        <Link to='/Registration'>Register</Link>
-        {/* End of Home page nav links */}
-
-
-        {/* Start of Login */}
-        <Route exact path='/' >
-          <Login
-            validateChange={validateChange}
-            onCheckboxChange={onCheckboxChange}
-            onSubmit={onLogin}
-            disabled={disabled}
-            errors={errors}
-            values={formState}
-          />
-        </Route>
-        {/* end of Login */}
+      <Navbar />
+      {/* Start of Login */}
+      <Route exact path='/' >
+        <Login
+          validateChange={validateChange}
+          onCheckboxChange={onCheckboxChange}
+          onSubmit={onLogin}
+          disabled={disabled}
+          errors={errors}
+          values={formState}
+        />
+      </Route>
+      {/* end of Login */}
 
 
-        {/* start of registration */}
-        <Route exact path='/Registration' >
-          <Form
+      {/* start of registration */}
+      <Route exact path='/register' >
+        <Form
 
-            validateChange={validateChange}
-            onCheckboxChange={onCheckboxChange}
-            onSubmit={onSubmit}
-            disabled={disabled}
-            errors={errors}
-            values={formState}
+          validateChange={validateChange}
+          onCheckboxChange={onCheckboxChange}
+          onSubmit={onSubmit}
+          disabled={disabled}
+          errors={errors}
+          values={formState}
 
-          />
-          {username.map(user => {
-            return (
-              <div key={user.id}>
-                <h3> {user.username} </h3>
-                <h3> {user.email} </h3>
-              </div>
-            )
-
-
-          }
-          )}
-        </Route>
-        {/* end of my registration */}
+        />
+        {username.map(user => {
+          return (
+            <div key={user.id}>
+              <h3> {user.username} </h3>
+              <h3> {user.email} </h3>
+            </div>
+          )
 
 
-      </header>
+        }
+        )}
+      </Route>
+      <ProtectedRoute path='/dashboard/:username' component={UserDashboard} />
+      {/* end of my registration */}
     </div>
 
   )
