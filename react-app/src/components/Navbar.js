@@ -1,10 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { useLocalStorage } from '../hooks/useLocalStorage'
+import { connect } from 'react-redux'
 
-const Navbar = props => {
-
-    const [loggedIn] = useLocalStorage('loggedIn', null)
+const Navbar = ({ username }) => {
 
     const logOut = () => {
         window.localStorage.removeItem('loggedIn')
@@ -14,10 +12,16 @@ const Navbar = props => {
     return (
         <nav className="navbar">
             <h2>Salty Trolls</h2>
-            {/*username && <h2>Welcome, {username}</h2>*/}
-            <Link onClick={logOut} to="/">{loggedIn ? 'Log Out' : 'Log In'}</Link>
+            {username && <h2>Welcome, {username}</h2>}
+            <Link onClick={logOut} to="/">{true ? 'Log Out' : 'Log In'}</Link>
         </nav>
     )
 }
 
-export default Navbar
+const mapStateToProps = state => {
+    return {
+        username: state.appReducer.username
+    }
+}
+
+export default connect(mapStateToProps, {})(Navbar)

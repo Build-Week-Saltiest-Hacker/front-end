@@ -1,11 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import axios from 'axios';
 import * as yup from 'yup';
 import formValidate from './FormValidate'
 
+//connect to Redux
+import { connect } from 'react-redux'
+import { handleLogin } from '../store/actions/index'
+
 //start of my Form\\
-export default function Login() {
+function Login(props) {
+
+    const {
+        isLoggingIn,
+        handleLogin
+
+    } = props
+
+    const { push } = useHistory()
 
     //start of consts\\ 
     const initialError = {
@@ -30,13 +41,8 @@ export default function Login() {
 
     const postNewUsername = newUsername => {
 
-        axios.post('https://cors-anywhere.herokuapp.com/https://saltiest-hacker-lambda.herokuapp.com/api/auth/login', newUsername)
-            .then(res => {
-                console.log(res)
-            })
-            .catch(err => {
+        handleLogin(newUsername, push)
 
-            })
     }
 
     //~~~~~~~~~~~~~~~~~~ Event Handlers ~~~~~~~~~~~~~~~~~~\\
@@ -80,8 +86,8 @@ export default function Login() {
     }
     //~~~~~~~~~~~~~~~~~~end of checkbox change~~~~~~~~~~~~~~~~~~\\
 
-    //~~~~~~~~~~~~~~~~~~start of onSubmit~~~~~~~~~~~~~~~~~~\\
-    const onSubmit = evt => {
+    //~~~~~~~~~~~~~~~~~~start of onLogin~~~~~~~~~~~~~~~~~~\\
+    const onLogin = evt => {
         // debugger
         evt.preventDefault() //prevents from refreshing
         postNewUsername(formState)
@@ -92,7 +98,7 @@ export default function Login() {
 
     return (
 
-        <form className='form container' onSubmit={onSubmit}>
+        <form className='form container' onSubmit={onLogin}>
             <div>
                 <h2>Welcome to the login page </h2>
                 {/* rendering validation errors here */}
@@ -111,14 +117,12 @@ export default function Login() {
                 {/* name  */}
                 <div>
                     <label> UserName&nbsp;
-            <input
+              <input
                             name='username'
                             type='text'
                             // value={values.username}
                             onChange={validateChange}
                             placeholder='Your user name here..'
-
-
                         />
                     </label>
                 </div>
@@ -140,26 +144,37 @@ export default function Login() {
 
 
                 {/* Submit Button */}
+                {isLoggingIn ?
+                    <p>Logging In...</p> :
 
-                <button
-                    name='login'
-                    type='button'
-                > Login
+                    <div>
+                        <button
+                            name='login'
+
+                        > Login
                 </button>
 
 
-                <Link to="/registration">
-                    <button type="button">
-                        Not registered?
+                        <Link to="/registration">
+                            <button type="button">
+                                Not registered?
                     </button>
-                </Link>
+                        </Link>
 
-
-
+                    </div>
+                }
             </div>
         </form>
 
     )
 }
+
+const mapStateToProps = state => {
+    return {
+        isLoggingIn: state.appReducer.isLoggingIn
+    }
+}
+
+export default connect(mapStateToProps, { handleLogin })(Login)
 
         //end of my form\\
