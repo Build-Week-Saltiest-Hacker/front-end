@@ -1,40 +1,37 @@
-import React, { useState, useEffect } from 'react';
-import { Route, Switch, Link } from 'react-router-dom';
-import Login from './components/Login';
-import Form from './components/Registration';
+import React from 'react';
+import { Route } from 'react-router-dom';
+
+//Components
+import Navbar from './components/Navbar'
+import Login from './components/Login'
+import Form from './components/Registration'
+import UserDashboard from './components/UserDashboard'
+import ProtectedRoute from './components/ProtectedRoute'
 
 
+//Styles
+import './index.css'
 
 function App() {
-
-
-
   // start of return statement
   return (
-
-
-    <div>
-
-
-
+    <>
+      <Navbar />
       {/* Start of Login */}
       <Route exact path='/' >
         <Login />
       </Route>
       {/* end of Login */}
 
-
       {/* start of registration */}
-      <Route exact path='/Registration' >
+      <Route exact path='/Registration'>
         <Form />
-
       </Route>
       {/* end of my registration */}
 
+      <ProtectedRoute path='/dashboard/:username' component={UserDashboard} />
 
-
-    </div>
-
+    </>
   )
 }
 

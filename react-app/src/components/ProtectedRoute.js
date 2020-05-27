@@ -7,7 +7,7 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
     return (
         <Route
             {...rest}
-            render={() => token ? <Component /> : <Redirect to='/login' />}
+            render={() => token ? <Component /> : <Redirect to='/' />}
         />
     )
 }
