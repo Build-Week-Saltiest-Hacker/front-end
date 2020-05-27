@@ -12,6 +12,10 @@
 
             img{
                 width: 30rem;
+
+                @media@mobile{
+                    width: 15rem;
+                }
             }
         }
         .search{
@@ -25,12 +29,21 @@
                 border: 1px solid @secondary-color;
                 padding: 0 4rem;
                 height: 3rem;
+
+                @media@mobile{
+                    width: 10rem;
+                    height: 2rem;
+                }
             }
 
             img{
                 position: absolute;
                 width: 3.5rem;
-                margin-left: 0.5rem;                
+                margin-left: 0.5rem;  
+                
+                @media@mobile{
+                    width: 2.5rem;
+                }
             }
         }
     }
