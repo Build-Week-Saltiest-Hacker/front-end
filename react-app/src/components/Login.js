@@ -92,7 +92,7 @@ export default function Login(props) {
     }
     //~~~~~~~~~~~~~~~~~~end of checkbox change~~~~~~~~~~~~~~~~~~\\
 
-    //~~~~~~~~~~~~~~~~~~start of onSubmit~~~~~~~~~~~~~~~~~~\\
+    //~~~~~~~~~~~~~~~~~~start of onLogin~~~~~~~~~~~~~~~~~~\\
     const onLogin = evt => {
         // debugger
         evt.preventDefault() //prevents from refreshing
@@ -121,23 +121,21 @@ export default function Login(props) {
 
 
                 <h4> Login credentials</h4>
-                
+
                 {/* name  */}
                 <div>
                     <label> UserName&nbsp;
-            <input
+              <input
                             name='username'
                             type='text'
                             // value={values.username}
                             onChange={validateChange}
                             placeholder='Your user name here..'
-
-
                         />
                     </label>
                 </div>
 
-           
+
                 {/* password */}
                 <div>
                     <label>Password&nbsp;
@@ -151,7 +149,7 @@ export default function Login(props) {
                         />
                     </label>
                 </div>
-              
+
 
                 {/* Submit Button */}
 
