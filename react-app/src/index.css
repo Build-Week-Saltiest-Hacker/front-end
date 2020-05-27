@@ -30,8 +30,16 @@
     margin: 5% auto;
 }
 
+.form.container {
+    width: 40%;
+    border: 1px solid black;
+    padding: 2%;
+    border-radius: 7px;
+    box-shadow: 1px 1px 6px #444;
+}
+
 button {
-    margin: 2%;
+    margin: 5% 2% 0;
     border: 1px solid #000;
     border-radius: 7px;
     padding: 1%;

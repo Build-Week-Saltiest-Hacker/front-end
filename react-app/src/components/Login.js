@@ -1,16 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Route, Switch, Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import * as yup from 'yup';
 import formValidate from './FormValidate'
 
 //start of my Form\\
-export default function Login(props) {
+export default function Login() {
 
-    const {
-        values,
-
-    } = props;
     //start of consts\\ 
     const initialError = {
         username: '',
@@ -24,10 +20,8 @@ export default function Login(props) {
         password: '',
 
     }
-    const initialUsername = []
     const initialDisabled = true
     //~~~~~~~~~~~~~~~~~~STATES~~~~~~~~~~~~~~~~~~\\
-    const [username, setUsername] = useState(initialUsername)
     const [disabled, setDisabled] = useState(initialDisabled)
     const [formState, setFormState] = useState(initialFormState);
 
@@ -36,16 +30,12 @@ export default function Login(props) {
 
     const postNewUsername = newUsername => {
 
-        axios.post('https://reqres.in/api/users', newUsername)
+        axios.post('https://cors-anywhere.herokuapp.com/https://saltiest-hacker-lambda.herokuapp.com/api/auth/login', newUsername)
             .then(res => {
-                setUsername([res.data, ...username])
-
+                console.log(res)
             })
             .catch(err => {
-                debugger
-            })
-            .finally(() => {
-                setFormState(initialFormState)
+
             })
     }
 
@@ -82,8 +72,7 @@ export default function Login(props) {
     //~~~~~~~~~~~~~~~~~~ END Validation~~~~~~~~~~~~~~~~~~ \\
     //start of checkbox change\\
     const onCheckboxChange = evt => {
-        const { name } = evt.target
-        const { checked } = evt.target
+        const { name, checked } = evt.target
         setFormState({
             ...formState, [name]: checked,
         })
@@ -92,12 +81,10 @@ export default function Login(props) {
     //~~~~~~~~~~~~~~~~~~end of checkbox change~~~~~~~~~~~~~~~~~~\\
 
     //~~~~~~~~~~~~~~~~~~start of onSubmit~~~~~~~~~~~~~~~~~~\\
-    const onLogin = evt => {
+    const onSubmit = evt => {
         // debugger
         evt.preventDefault() //prevents from refreshing
-
-
-
+        postNewUsername(formState)
 
     }
 
@@ -105,7 +92,7 @@ export default function Login(props) {
 
     return (
 
-        <form className='form container' onSubmit={onLogin}>
+        <form className='form container' onSubmit={onSubmit}>
             <div>
                 <h2>Welcome to the login page </h2>
                 {/* rendering validation errors here */}
