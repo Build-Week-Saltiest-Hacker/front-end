@@ -5,25 +5,26 @@ import * as yup from 'yup';
 import formValidate from './FormValidate'
 
 //start of my Form\\
-export default function Login(props) {
+export default function Form(props) {
 
     const {
         values,
+
 
 
     } = props;
     //start of consts\\ 
     const initialError = {
         username: '',
-
+        email: '',
         password: '',
 
     }
     const initialFormState = {
         username: '',
-
+        email: '',
         password: '',
-
+        TOS: false,
     }
     const initialUsername = []
     const initialDisabled = true
@@ -81,7 +82,7 @@ export default function Login(props) {
             })
     }, [formState])
     //~~~~~~~~~~~~~~~~~~ END Validation~~~~~~~~~~~~~~~~~~ \\
-    //start of checkbox change\\
+    //~~~~~~~~~~~~~~~~~~ start of checkbox chang~~~~~~~~~~~~~~~~~~ e\\
     const onCheckboxChange = evt => {
         const { name } = evt.target
         const { checked } = evt.target
@@ -93,39 +94,44 @@ export default function Login(props) {
     //~~~~~~~~~~~~~~~~~~end of checkbox change~~~~~~~~~~~~~~~~~~\\
 
     //~~~~~~~~~~~~~~~~~~start of onSubmit~~~~~~~~~~~~~~~~~~\\
-    const onLogin = evt => {
+    const onSubmit = evt => {
         // debugger
         evt.preventDefault() //prevents from refreshing
+        const newUsername = {
+            username: formState.username.trim(),
+            email: formState.email.trim(),
+            password: formState.password.trim(),
 
+        }
+        postNewUsername(newUsername)
 
 
 
     }
 
-
-
     return (
 
-        <form className='form container' onSubmit={onLogin}>
+        <form className='form container' onSubmit={onSubmit}>
             <div>
-                <h2>Welcome to the login page </h2>
+                <h2>Registration page </h2>
+
+
+                <h4> Register your account here</h4>
                 {/* rendering validation errors here */}
                 <div className='errors'>
-                    {/*  RENDER THE VALIDATION ERRORS HERE */}
+                    {/* RENDER THE VALIDATION ERRORS HERE */}
                     <div>{errors.username}</div>
+                    <div>{errors.email}</div>
                     <div>{errors.password}</div>
-
                 </div>
 
+
                 {/* end of validation */}
-
-
-                <h4> Login credentials</h4>
-                
                 {/* name  */}
+
                 <div>
                     <label> UserName&nbsp;
-            <input
+                    <input
                             name='username'
                             type='text'
                             // value={values.username}
@@ -137,12 +143,24 @@ export default function Login(props) {
                     </label>
                 </div>
 
-           
+                {/* email */}
+
+                <div>
+                    <label>Email&nbsp;
+
+                       <input
+                            name='email'
+                            type='text'
+                            // value={values.email}
+                            onChange={validateChange}
+                        />
+                    </label>
+                </div>
                 {/* password */}
                 <div>
                     <label>Password&nbsp;
 
-        <input
+                        <input
                             name='password'
                             type='password'
                             // value={values.password}
@@ -151,25 +169,39 @@ export default function Login(props) {
                         />
                     </label>
                 </div>
-              
+                {/* TOS */}
+                <div>
+
+                    <label>Terms Of Service&nbsp;
+                    <input
+                            type='checkbox'
+                            name='TOS'
+                            // checked={values.TOS}
+                            onChange={onCheckboxChange}
+                        // add onChangefunction to app js and call it back later
+                        />
+                    </label>
+                </div>
 
                 {/* Submit Button */}
 
-                <button
-                    name='login'
-                    type='button'
-                > Login
-                </button>
-
-
-                <Link to="/registration">
+                <button disabled={disabled}> Submit </button>
+                <Link to="/">
                     <button type="button">
-                        Not registered?
-                    </button>
+                        Already a user?
+                </button>
                 </Link>
+                {username.map(user => {
+                    return (
+                        <div key={user.id}>
+                            <h3> {user.username} </h3>
+                            <h3> {user.email} </h3>
+                        </div>
+                    )
 
 
-
+                }
+                )}
             </div>
         </form>
 
