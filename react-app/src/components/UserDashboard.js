@@ -16,6 +16,7 @@ const UserDashboard = props => {
     /******************************* PROPS *******************************/
     const {
         commentList,
+        favComments,
         setUserInfo,
         fetchComments,
         searchUser
@@ -32,6 +33,7 @@ const UserDashboard = props => {
         axiosWithAuth()
             .get(`/users/username=${username}`)
             .then(res => {
+                console.log(res.data)
                 setUserInfo(res.data)
             })
             .catch(err => console.log(err.respone))
@@ -95,7 +97,15 @@ const UserDashboard = props => {
             <div className="fav-comments">
                 <h3>My Favorite Comments</h3>
                 <ul>
-
+                    {
+                        favComments.length > 0
+                            ?
+                            favComments.map((c, idx) => <CommentCard key={idx} comment={c} />)
+                            :
+                            <li>
+                                <h3>No Favorite Comments</h3>
+                            </li>
+                    }
                 </ul>
             </div>
         </div>
@@ -106,7 +116,8 @@ const mapStateToProps = state => {
 
     return {
         userInfo: state.appReducer.userInfo,
-        commentList: state.appReducer.commentList
+        commentList: state.appReducer.commentList,
+        favComments: state.appReducer.favComments
     }
 }
 

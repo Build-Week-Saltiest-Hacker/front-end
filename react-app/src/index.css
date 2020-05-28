@@ -32,7 +32,7 @@
     margin: 5% auto;
 }
 
-.form.container {
+.form.container, .update-form {
     width: 40%;
     border: 1px solid black;
     padding: 2%;
@@ -40,11 +40,15 @@
     box-shadow: 1px 1px 6px #444;
 }
 
+.update-form input {
+    display: block;
+}
+
 button {
     margin: 5% 2% 0;
     border: 1px solid #000;
     border-radius: 7px;
-    padding: 1%;
+    padding: 2%;
     box-shadow: 1px 1px 6px #444;
     text-align: center;
     outline: none;

@@ -53,19 +53,7 @@ export const searchUser = user => {
     }
 }
 
-export const DELETE_USER_ACCOUNT = 'DELETE_USER_ACCOUNT'
-export const deleteUserAccount = username => {
-    return dispatch => {
-        dispatch({ type: DELETE_USER_ACCOUNT })
-
-        axiosWithAuth()
-            .delete(`/users/username=${username}`)
-            .then(res => {
-                console.log({ res })
-
-            })
-            .catch(err => {
-                console.log(err.response)
-            })
-    }
+export const SAVE_COMMENT = 'SAVE_COMMENT'
+export const saveComment = comment => {
+    return { type: SAVE_COMMENT, payload: comment }
 }
