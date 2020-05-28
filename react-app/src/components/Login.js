@@ -151,7 +151,7 @@ function Login() {
 
                     <div>
 
-                        <button disabled={disabled}> login </button>
+                        <button disabled={disabled}>Login</button>
 
 
                         <Link to="/registration">

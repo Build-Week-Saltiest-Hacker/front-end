@@ -68,7 +68,6 @@ const UserSettings = props => {
                     <div>
                         <p>Username: {userInfo.username}</p>
                         <p>Email: {userInfo.email}</p>
-
                     </div>
                 }
             </div>
