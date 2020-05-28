@@ -2,11 +2,11 @@ import React from 'react';
 
 
 const CommentCard = props => {
-    return(
+    return (
         <li className="comment-card">
             <h3>{props.username}</h3>
             <p>{props.text}</p>
-            
+
             {props.score ? (<p classname="salt-rating">{props.score}</p>) : null
             }
         </li>

@@ -3,6 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios'
 import * as yup from 'yup';
 import loginValidate from './LoginValidate'
+import { useLocalStorage } from '../hooks/useLocalStorage'
 
 //start of my Form\\
 function Login() {
@@ -25,7 +26,7 @@ function Login() {
     const initialDisabled = true
     //~~~~~~~~~~~~~~~~~~STATES~~~~~~~~~~~~~~~~~~\\
     const [disabled, setDisabled] = useState(initialDisabled)
-    const [formState, setFormState] = useState(initialFormState);
+    const [formState, setFormState] = useLocalStorage('formValues', initialFormState);
     const [isLoggingIn, setIsLoggingIn] = useState(false)
     const [errors, setErrors] = useState(initialError);
     //~~~~~~~~~~~~~~~~~~start of post~~~~~~~~~~~~~~~~~~\\
@@ -36,10 +37,13 @@ function Login() {
             .then(res => {
 
                 //Get the username
-                const username = res.data.message.split(' ')[0]
+                const username = newUsername.username
 
                 //Set the token into local storage
                 window.localStorage.setItem('token', JSON.stringify(res.data.token))
+
+                //Reset formValues in local storage
+                setFormState(initialFormState)
 
                 //push to the user dashboard
                 push(`/dashboard/${username}`)
@@ -82,15 +86,6 @@ function Login() {
             })
     }, [formState])
     //~~~~~~~~~~~~~~~~~~ END Validation~~~~~~~~~~~~~~~~~~ \\
-    //start of checkbox change\\
-    const onCheckboxChange = evt => {
-        const { name, checked } = evt.target
-        setFormState({
-            ...formState, [name]: checked,
-        })
-
-    }
-    //~~~~~~~~~~~~~~~~~~end of checkbox change~~~~~~~~~~~~~~~~~~\\
 
     //~~~~~~~~~~~~~~~~~~start of onLogin~~~~~~~~~~~~~~~~~~\\
     const onLogin = evt => {
@@ -127,7 +122,7 @@ function Login() {
               <input
                             name='username'
                             type='text'
-                            // value={values.username}
+                            value={formState.username}
                             onChange={validateChange}
                             placeholder='Your user name here..'
                         />
@@ -142,7 +137,7 @@ function Login() {
         <input
                             name='password'
                             type='password'
-                            // value={values.password}
+                            value={formState.password}
                             onChange={validateChange}
 
                         />
