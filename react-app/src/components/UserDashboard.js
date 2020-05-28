@@ -3,6 +3,8 @@ import { Link, useParams } from 'react-router-dom'
 import { axiosWithAuth } from '../utils/axiosWithAuth'
 import { useLocalStorage } from '../hooks/useLocalStorage'
 
+import CommentCard from './CommentCard'
+
 //Redux
 import { connect } from 'react-redux'
 import { setUserInfo, fetchComments, searchUser } from '../store/actions'
@@ -39,7 +41,7 @@ const UserDashboard = props => {
     useEffect(() => {
         fetchComments()
 
-    }, [])
+    }, [fetchComments])
 
     /****************************** CALLBACKS ******************************/
 
@@ -56,7 +58,7 @@ const UserDashboard = props => {
 
     }
 
-
+    /******************************** JSX ********************************/
     return (
         <div className="container">
             <Link to={`/settings/${username}`}>Settings</Link>
@@ -74,14 +76,14 @@ const UserDashboard = props => {
                 <button type="button" onClick={fetchComments}>Top 🧂</button>
             </form>
             <div className="top-comments">
-                <h3>Saltiest Comments</h3>
+                <h3>🧂 Saltiest Comments 🧂</h3>
                 <ul>
                     {
                         commentList.length > 0
 
                             ?
 
-                            commentList.map((c, idx) => <li key={idx}><h4>{c.username}</h4><p>{c.text}</p></li>)
+                            commentList.map((c, idx) => <CommentCard key={idx} comment={c} />)
                             :
 
                             <li>

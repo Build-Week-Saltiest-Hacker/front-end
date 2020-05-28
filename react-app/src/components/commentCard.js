@@ -1,14 +1,16 @@
 import React from 'react';
+import SaltRating from './SaltRating'
 
 
-const CommentCard = props => {
+const CommentCard = ({ comment }) => {
+
     return (
         <li className="comment-card">
-            <h3>{props.username}</h3>
-            <p>{props.text}</p>
-
-            {props.score ? (<p classname="salt-rating">{props.score}</p>) : null
+            <h3>{comment.username}</h3>
+            {
+                comment.score ? <SaltRating score={comment.score} /> : null
             }
+            <p>{comment.text}</p>
         </li>
     )
 }

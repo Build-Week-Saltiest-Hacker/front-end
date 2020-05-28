@@ -3,6 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import * as yup from 'yup';
 import formValidate from './FormValidate'
+import { useLocalStorage } from '../hooks/useLocalStorage'
 
 //start of my Form\\
 export default function Form() {
@@ -26,7 +27,7 @@ export default function Form() {
     const initialDisabled = true
     //~~~~~~~~~~~~~~~~~~STATES~~~~~~~~~~~~~~~~~~\\
     const [disabled, setDisabled] = useState(initialDisabled)
-    const [formState, setFormState] = useState(initialFormState);
+    const [formState, setFormState] = useLocalStorage('formValues', initialFormState);
     const [isLoggingIn, setIsLoggingIn] = useState(false)
     // const [disabled, setDisabled] = useState(initialDisabled)
     // const [formState, setFormState] = useState(initialFormState)
@@ -129,7 +130,7 @@ export default function Form() {
                     <input
                             name='username'
                             type='text'
-                            // value={values.username}
+                            value={formState.username}
                             onChange={validateChange}
                             placeholder='Your user name here..'
 
@@ -146,7 +147,7 @@ export default function Form() {
                        <input
                             name='email'
                             type='text'
-                            // value={values.email}
+                            value={formState.email}
                             onChange={validateChange}
                         />
                     </label>
@@ -158,7 +159,7 @@ export default function Form() {
                         <input
                             name='password'
                             type='password'
-                            // value={values.password}
+                            value={formState.password}
                             onChange={validateChange}
 
                         />
@@ -171,7 +172,7 @@ export default function Form() {
                     <input
                             type='checkbox'
                             name='TOS'
-                            // checked={values.TOS}
+                            checked={formState.TOS}
                             onChange={onCheckboxChange}
                         // add onChangefunction to app js and call it back later
                         />
