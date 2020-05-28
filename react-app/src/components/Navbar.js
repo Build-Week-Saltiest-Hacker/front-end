@@ -13,7 +13,7 @@ const Navbar = ({ username }) => {
         <nav className="navbar">
             <h2>Salty Trolls</h2>
             {username && <h2>Welcome, {username}</h2>}
-            <Link onClick={logOut} to="/">{true ? 'Log Out' : 'Log In'}</Link>
+            <Link onClick={logOut} to="/">{username ? 'Log Out' : 'Log In'}</Link>
         </nav>
     )
 }

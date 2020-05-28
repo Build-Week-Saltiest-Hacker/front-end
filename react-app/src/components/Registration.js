@@ -33,7 +33,7 @@ export default function Form() {
 
     const postNewUsername = newUsername => {
 
-        axios.post('https://cors-anywhere.herokuapp.com/https://saltiest-hacker-lambda.herokuapp.com/api/auth/register/auth', newUsername)
+        axios.post('https://cors-anywhere.herokuapp.com/https://saltiest-hacker-lambda.herokuapp.com/api/auth/register/', newUsername)
             .then(res => {
                 push('/')
             })
