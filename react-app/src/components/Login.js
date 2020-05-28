@@ -1,20 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import axios from 'axios'
 import * as yup from 'yup';
-import formValidate from './FormValidate'
-
-//connect to Redux
-import { connect } from 'react-redux'
-import { handleLogin } from '../store/actions/index'
+import loginValidate from './LoginValidate'
 
 //start of my Form\\
-function Login(props) {
-
-    const {
-        isLoggingIn,
-        handleLogin
-
-    } = props
+function Login() {
 
     const { push } = useHistory()
 
@@ -34,13 +25,29 @@ function Login(props) {
     const initialDisabled = true
     //~~~~~~~~~~~~~~~~~~STATES~~~~~~~~~~~~~~~~~~\\
     const [disabled, setDisabled] = useState(initialDisabled)
-    const [formState, setFormState] = useState(initialFormState)
-    const [errors, setErrors] = useState(initialError)
+    const [formState, setFormState] = useState(initialFormState);
+    const [isLoggingIn, setIsLoggingIn] = useState(false)
+    const [errors, setErrors] = useState(initialError);
     //~~~~~~~~~~~~~~~~~~start of post~~~~~~~~~~~~~~~~~~\\
 
     const postNewUsername = newUsername => {
 
-        handleLogin(newUsername, push)
+        axios.post('https://cors-anywhere.herokuapp.com/https://saltiest-hacker-lambda.herokuapp.com/api/auth/login', newUsername)
+            .then(res => {
+
+                //Get the username
+                const username = res.data.message.split(' ')[0]
+
+                //Set the token into local storage
+                window.localStorage.setItem('token', JSON.stringify(res.data.token))
+
+                //push to the user dashboard
+                push(`/dashboard/${username}`)
+            })
+            .catch(err => {
+                console.log(err.response)
+                setIsLoggingIn(false)
+            })
 
     }
 
@@ -49,7 +56,7 @@ function Login(props) {
     const validateChange = evt => {
         const name = evt.target.name
         const value = evt.target.value
-        yup.reach(formValidate, name)
+        yup.reach(loginValidate, name)
             .validate(value)
             .then(valid => {
                 setErrors({ ...errors, [name]: '' })
@@ -69,7 +76,7 @@ function Login(props) {
 
     useEffect(() => {
 
-        formValidate.isValid(formState)
+        loginValidate.isValid(formState)
             .then(valid => {
                 setDisabled(!valid)
             })
@@ -89,6 +96,7 @@ function Login(props) {
     const onLogin = evt => {
         // debugger
         evt.preventDefault() //prevents from refreshing
+        setIsLoggingIn(true)
         postNewUsername(formState)
 
     }
@@ -147,11 +155,8 @@ function Login(props) {
                     <p>Logging In...</p> :
 
                     <div>
-                        <button
-                            name='login'
 
-                        > Login
-                </button>
+                        <button disabled={disabled}> login </button>
 
 
                         <Link to="/registration">
@@ -168,12 +173,6 @@ function Login(props) {
     )
 }
 
-const mapStateToProps = state => {
-    return {
-        isLoggingIn: state.appReducer.isLoggingIn
-    }
-}
-
-export default connect(mapStateToProps, { handleLogin })(Login)
+export default Login
 
         //end of my form\\

@@ -1,25 +1,13 @@
-import { axiosWithAuth } from '../../utils/axiosWithAuth'
-import { userLogin } from '../../utils/userLogin'
-
-export const LOGIN_START = 'LOGIN_START'
-export const LOGIN_SUCCESSFUL = 'LOGIN_SUCCESSFUL'
-export const LOGIN_FAILURE = 'LOGIN_FAILURE'
-export const handleLogin = (credentials, cb) => {
-
+export const SET_USER_INFO = 'SET_USER_INFO'
+export const setUserInfo = user => {
     return dispatch => {
-        dispatch({ type: LOGIN_START })
-
-        axiosWithAuth()
-            .post('/auth/login', credentials)
-            .then(res => {
-
-                userLogin(res.data.message, res.data.token, cb)
-                dispatch({ type: LOGIN_SUCCESSFUL, payload: credentials.username })
-            })
-            .catch(err => {
-                console.log(err.response)
-                dispatch({ type: LOGIN_FAILURE })
-            })
+        dispatch({ type: SET_USER_INFO, payload: user })
     }
+}
 
+export const CLEAR_USER_INFO = 'CLEAR_USER_INFO'
+export const clearUserInfo = () => {
+    return dispatch => {
+        dispatch({ type: CLEAR_USER_INFO })
+    }
 }

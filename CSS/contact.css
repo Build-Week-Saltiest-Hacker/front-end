@@ -66,36 +66,43 @@ header nav a:hover {
 body {
   background-color: #040d14;
 }
-body h2 {
-  color: white;
-  font-size: 3rem;
-  margin-left: 3%;
+body .container {
+  border-radius: 10px;
+  background-color: whitesmoke;
+  padding: 2rem;
+  margin: 5% auto;
+  width: 50rem;
+  font-family: Arial, Helvetica, sans-serif;
+  max-width: 50%;
+  /* When moving the mouse over the submit button, add a darker green color */
 }
-@media (max-width: 500px) {
-  body h2 {
-    font-size: 2.5rem;
-    margin: 2% auto;
-  }
-}
-body .gallery {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
-body .gallery figure {
-  color: white;
-  width: 20%;
-  font-size: 1.5rem;
-}
-@media (max-width: 500px) {
-  body .gallery figure {
-    width: 40%;
-    margin: 5% auto;
-  }
-}
-body .gallery figure a {
-  color: #01a308;
-}
-body .gallery figure img {
+body .container input[type=text],
+body .container select,
+body .container textarea {
   width: 100%;
+  /* Full width */
+  padding: 12px;
+  /* Some padding */
+  border: 1px solid #ccc;
+  /* Gray border */
+  border-radius: 4px;
+  /* Rounded borders */
+  box-sizing: border-box;
+  /* Make sure that padding and width stays in place */
+  margin-top: 6px;
+  /* Add a top margin */
+  margin-bottom: 16px;
+  /* Bottom margin */
+  resize: vertical /* Allow the user to vertically resize the textarea (not horizontally) */;
+}
+body .container input[type=submit] {
+  background-color: #01a308;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+body .container input[type=submit]:hover {
+  background-color: #033211;
 }
