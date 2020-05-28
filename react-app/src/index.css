@@ -58,6 +58,11 @@ button:active {
     box-shadow: none;
 }
 
+.delete-btn {
+    color: red;
+    border-color: red;
+}
+
 .top-comments, .fav-comments {
     width: 40%;
     margin: 0 auto;

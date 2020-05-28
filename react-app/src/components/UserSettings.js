@@ -1,12 +1,19 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { Link, useParams } from 'react-router-dom'
+import { axiosWithAuth } from '../utils/axiosWithAuth'
 
 //Redux
 import { connect } from 'react-redux'
+import { setUserInfo, deleteUserAccount } from '../store/actions'
 
 const UserSettings = props => {
 
+    const { username } = useParams()
+
     const {
-        userInfo
+        userInfo,
+        setUserInfo,
+        deleteUserAccount
 
     } = props
 
@@ -23,6 +30,18 @@ const UserSettings = props => {
 
     const [formValues, setFormValues] = useState(initialFormValues)
 
+    /**************************** SIDE EFFECTS ****************************/
+    useEffect(() => {
+
+        axiosWithAuth()
+            .get(`/users/username=${username}`)
+            .then(res => {
+                setUserInfo(res.data)
+            })
+            .catch(err => console.log(err.respone))
+
+    }, [username, setUserInfo])
+
     /****************************** CALLBACKS ******************************/
 
     const changeHandler = e => {
@@ -36,9 +55,24 @@ const UserSettings = props => {
         e.preventDefault()
     }
 
+    const deleteAccount = e => {
+        e.preventDefault()
+
+        deleteUserAccount(userInfo.username)
+    }
+
     return (
         <div className="container">
-            <form>
+            <div className="user-details">
+                {userInfo &&
+                    <div>
+                        <p>Username: {userInfo.username}</p>
+                        <p>Email: {userInfo.email}</p>
+
+                    </div>
+                }
+            </div>
+            <form onSubmit={onSubmit}>
                 <label>Username:
                     <input
                         name="username"
@@ -85,6 +119,7 @@ const UserSettings = props => {
                 </label>
 
                 <button>Submit</button>
+                <button className="delete-btn" type="button" onClick={deleteAccount}>Delete Account</button>
 
             </form>
 
@@ -98,4 +133,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, {})(UserSettings)
+export default connect(mapStateToProps, { setUserInfo, deleteUserAccount })(UserSettings)

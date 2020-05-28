@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { axiosWithAuth } from "../../utils/axiosWithAuth"
 
 export const SET_USER_INFO = 'SET_USER_INFO'
@@ -21,7 +22,7 @@ export const fetchComments = () => {
     return dispatch => {
         dispatch({ type: FETCH_COMMENTS_START })
 
-        axiosWithAuth()
+        axios
             .get('https://cors-anywhere.herokuapp.com/https://trolltrace.herokuapp.com/hightroll/')
             .then(res => {
                 dispatch({ type: FETCH_COMMENTS_SUCCESS, payload: res.data })
@@ -40,7 +41,7 @@ export const searchUser = user => {
     return dispatch => {
         dispatch({ type: SEARCH_USER_START })
 
-        axiosWithAuth()
+        axios
             .get(`https://cors-anywhere.herokuapp.com/https://trolltrace.herokuapp.com/user/${user}`)
             .then(res => {
                 dispatch({ type: SEARCH_USER_SUCCESS, payload: res.data })
@@ -48,6 +49,23 @@ export const searchUser = user => {
             .catch(err => {
                 console.log(err.response)
                 dispatch({ type: SEARCH_USER_FAILURE })
+            })
+    }
+}
+
+export const DELETE_USER_ACCOUNT = 'DELETE_USER_ACCOUNT'
+export const deleteUserAccount = username => {
+    return dispatch => {
+        dispatch({ type: DELETE_USER_ACCOUNT })
+
+        axiosWithAuth()
+            .delete(`/users/username=${username}`)
+            .then(res => {
+                console.log({ res })
+
+            })
+            .catch(err => {
+                console.log(err.response)
             })
     }
 }
