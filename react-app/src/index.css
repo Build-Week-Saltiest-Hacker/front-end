@@ -26,6 +26,8 @@
 }
 
 .container {
+    display: flex;
+    flex-wrap: wrap;
     width: 80%;
     margin: 5% auto;
 }
@@ -54,4 +56,28 @@ button:hover {
 
 button:active {
     box-shadow: none;
+}
+
+.top-comments, .fav-comments {
+    width: 40%;
+    margin: 0 auto;
+    border: 1px solid black;
+    text-align: center;
+}
+
+.search-comments {
+    width: 100%;
+    text-align: center;
+    margin: 5%;
+}
+
+ul {
+    list-style: none;
+    text-align: left;
+}
+
+li {
+    margin: 1%;
+    border: 1px solid black;
+    padding: 2%;
 }
