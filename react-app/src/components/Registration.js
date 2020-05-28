@@ -27,14 +27,17 @@ export default function Form() {
     //~~~~~~~~~~~~~~~~~~STATES~~~~~~~~~~~~~~~~~~\\
     const [disabled, setDisabled] = useState(initialDisabled)
     const [formState, setFormState] = useState(initialFormState);
-
-    const [errors, setErrors] = useState(initialError);
+    const [isLoggingIn, setIsLoggingIn] = useState(false)
+    // const [disabled, setDisabled] = useState(initialDisabled)
+    // const [formState, setFormState] = useState(initialFormState)
+    const [errors, setErrors] = useState(initialError)
     //~~~~~~~~~~~~~~~~~~start of post~~~~~~~~~~~~~~~~~~\\
 
     const postNewUsername = newUsername => {
 
         axios.post('https://cors-anywhere.herokuapp.com/https://saltiest-hacker-lambda.herokuapp.com/api/auth/register/', newUsername)
             .then(res => {
+                setFormState(initialFormState)
                 push('/')
             })
             .catch(err => {
