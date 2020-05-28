@@ -1,19 +1,30 @@
 import React, { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { axiosWithAuth } from '../utils/axiosWithAuth'
+import { useLocalStorage } from '../hooks/useLocalStorage'
 
 //Redux
 import { connect } from 'react-redux'
-import { setUserInfo } from '../store/actions'
+import { setUserInfo, fetchComments, searchUser } from '../store/actions'
 
 const UserDashboard = props => {
+
     const { username } = useParams()
 
+    /******************************* PROPS *******************************/
     const {
-        setUserInfo
+        commentList,
+        setUserInfo,
+        fetchComments,
+        searchUser
 
     } = props
 
+    /******************************* STATE *******************************/
+
+    const [searchInput, setSearchInput] = useLocalStorage('searchFor', '')
+
+    /**************************** SIDE EFFECTS ****************************/
     useEffect(() => {
 
         axiosWithAuth()
@@ -25,19 +36,65 @@ const UserDashboard = props => {
 
     }, [username, setUserInfo])
 
+    useEffect(() => {
+        fetchComments()
+
+    }, [])
+
+    /****************************** CALLBACKS ******************************/
+
+    const handleChange = e => {
+        setSearchInput(e.target.value)
+    }
+
+    const onSubmit = e => {
+        e.preventDefault()
+
+        searchUser(searchInput)
+
+        setSearchInput('')
+
+    }
+
 
     return (
         <div className="container">
-            <pre>Welcome, {username}</pre>
+            <Link to={`/settings/${username}`}>Settings</Link>
 
-            <form>
-                <label> Search by user:<br></br>
-                    <input type="text" placeholder="Mine for salt" />
+            <form className="search-comments" onSubmit={onSubmit}>
+                <label> Search by user:&nbsp;
+                    <input
+                        type="text"
+                        placeholder="Mine for salt"
+                        onChange={handleChange}
+                        value={searchInput}
+                    />
                 </label>
-                <button>🧂</button>
+                <button>🧂 by User</button>
+                <button type="button" onClick={fetchComments}>Top 🧂</button>
             </form>
-            <div>
+            <div className="top-comments">
                 <h3>Saltiest Comments</h3>
+                <ul>
+                    {
+                        commentList.length > 0
+
+                            ?
+
+                            commentList.map((c, idx) => <li key={idx}><h4>{c.username}</h4><p>{c.text}</p></li>)
+                            :
+
+                            <li>
+                                <h3>No Comments Found</h3>
+                            </li>
+                    }
+                </ul>
+            </div>
+            <div className="fav-comments">
+                <h3>My Favorite Comments</h3>
+                <ul>
+
+                </ul>
             </div>
         </div>
     )
@@ -46,8 +103,9 @@ const UserDashboard = props => {
 const mapStateToProps = state => {
 
     return {
-        userInfo: state.appReducer.userInfo
+        userInfo: state.appReducer.userInfo,
+        commentList: state.appReducer.commentList
     }
 }
 
-export default connect(mapStateToProps, { setUserInfo })(UserDashboard)
+export default connect(mapStateToProps, { setUserInfo, fetchComments, searchUser })(UserDashboard)
