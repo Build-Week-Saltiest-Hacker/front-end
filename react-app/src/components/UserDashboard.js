@@ -60,6 +60,22 @@ const UserDashboard = props => {
 
     }
 
+    const sortBySaltRating = (a, b) => {
+        const commentA = a.score
+        const commentB = b.score
+
+        let comparison = 0
+
+        if (commentA > commentB) {
+            comparison = 1
+        }
+        else if (commentA < commentB) {
+            comparison = -1
+        }
+
+        return comparison
+    }
+
     /******************************** JSX ********************************/
     return (
         <div className="container">
@@ -74,7 +90,7 @@ const UserDashboard = props => {
                         value={searchInput}
                     />
                 </label>
-                <button>🧂 by User</button>
+                <button>🧂 by Hack News user</button>
                 <button type="button" onClick={fetchComments}>Top 🧂</button>
             </form>
             <div className="top-comments">
@@ -85,7 +101,9 @@ const UserDashboard = props => {
 
                             ?
 
-                            commentList.map((c, idx) => <CommentCard key={idx} comment={c} />)
+                            commentList
+                                .sort(sortBySaltRating)
+                                .map((c, idx) => <CommentCard key={idx} comment={c} />)
                             :
 
                             <li>
