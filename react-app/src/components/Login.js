@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios'
 import * as yup from 'yup';
-import formValidate from './FormValidate'
+import loginValidate from './LoginValidate'
 import { useLocalStorage } from '../hooks/useLocalStorage'
 
 //start of my Form\\
@@ -60,7 +60,7 @@ function Login() {
     const validateChange = evt => {
         const name = evt.target.name
         const value = evt.target.value
-        yup.reach(formValidate, name)
+        yup.reach(loginValidate, name)
             .validate(value)
             .then(valid => {
                 setErrors({ ...errors, [name]: '' })
@@ -80,7 +80,7 @@ function Login() {
 
     useEffect(() => {
 
-        formValidate.isValid(formState)
+        loginValidate.isValid(formState)
             .then(valid => {
                 setDisabled(!valid)
             })
@@ -150,11 +150,8 @@ function Login() {
                     <p>Logging In...</p> :
 
                     <div>
-                        <button
-                            name='login'
 
-                        > Login
-                </button>
+                        <button disabled={disabled}> login </button>
 
 
                         <Link to="/registration">
