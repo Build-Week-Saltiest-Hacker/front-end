@@ -2,21 +2,21 @@ import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { handleLogin } from '../store/actions'
+import { axiosWithAuth } from '../utils/axiosWithAuth'
 
 const UserDashboard = props => {
     const { username } = useParams()
 
-    const {
-        userInfo,
-        isFetching,
-        handleLogin
-
-    } = props
-
     useEffect(() => {
-        console.log('set user info into state')
 
-    }, [])
+        axiosWithAuth()
+            .get(`/users/username=${username}`)
+            .then(res => {
+                console.log(res)
+            })
+            .catch(err => console.log(err.respone))
+
+    }, [username])
 
 
     return (

@@ -1,12 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { Route, Switch, Link } from 'react-router-dom';
-import axios from 'axios';
+import { Link, useHistory } from 'react-router-dom';
 import * as yup from 'yup';
 import formValidate from './FormValidate'
 
-//start of my Form\\
-export default function Login() {
+//connect to Redux
+import { connect } from 'react-redux'
+import { handleLogin } from '../store/actions/index'
 
+//start of my Form\\
+function Login(props) {
+
+    const {
+        isLoggingIn,
+        handleLogin
+
+    } = props
+
+    const { push } = useHistory()
 
     //start of consts\\ 
     const initialError = {
@@ -21,10 +31,8 @@ export default function Login() {
         password: '',
 
     }
-    const initialUsername = []
     const initialDisabled = true
     //~~~~~~~~~~~~~~~~~~STATES~~~~~~~~~~~~~~~~~~\\
-    // const [username, setUsername] = useState(initialUsername)
     const [disabled, setDisabled] = useState(initialDisabled)
     const [formState, setFormState] = useState(initialFormState)
     const [errors, setErrors] = useState(initialError)
@@ -32,14 +40,8 @@ export default function Login() {
 
     const postNewUsername = newUsername => {
 
-        axios.post('https://cors-anywhere.herokuapp.com/https://saltiest-hacker-lambda.herokuapp.com/api/auth/login', newUsername)
-            .then(res => {
-                console.log(res)
+        handleLogin(newUsername, push)
 
-            })
-            .catch(err => {
-                debugger
-            })
     }
 
     //~~~~~~~~~~~~~~~~~~ Event Handlers ~~~~~~~~~~~~~~~~~~\\
@@ -75,8 +77,7 @@ export default function Login() {
     //~~~~~~~~~~~~~~~~~~ END Validation~~~~~~~~~~~~~~~~~~ \\
     //start of checkbox change\\
     const onCheckboxChange = evt => {
-        const { name } = evt.target
-        const { checked } = evt.target
+        const { name, checked } = evt.target
         setFormState({
             ...formState, [name]: checked,
         })
@@ -88,9 +89,7 @@ export default function Login() {
     const onLogin = evt => {
         // debugger
         evt.preventDefault() //prevents from refreshing
-
-
-
+        postNewUsername(formState)
 
     }
 
@@ -144,26 +143,37 @@ export default function Login() {
 
 
                 {/* Submit Button */}
+                {isLoggingIn ?
+                    <p>Logging In...</p> :
 
-                <button
-                    name='login'
-                    type='button'
-                > Login
+                    <div>
+                        <button
+                            name='login'
+
+                        > Login
                 </button>
 
 
-                <Link to="/registration">
-                    <button type="submit">
-                        Not registered?
+                        <Link to="/registration">
+                            <button type="button">
+                                Not registered?
                     </button>
-                </Link>
+                        </Link>
 
-
-
+                    </div>
+                }
             </div>
         </form>
 
     )
 }
+
+const mapStateToProps = state => {
+    return {
+        isLoggingIn: state.appReducer.isLoggingIn
+    }
+}
+
+export default connect(mapStateToProps, { handleLogin })(Login)
 
         //end of my form\\

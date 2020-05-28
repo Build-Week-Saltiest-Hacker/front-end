@@ -4,12 +4,10 @@ import axios from 'axios';
 import * as yup from 'yup';
 import formValidate from './FormValidate'
 
-
 //start of my Form\\
 export default function Form() {
 
     const { push } = useHistory()
-
 
     //start of consts\\ 
     const initialError = {
@@ -24,26 +22,27 @@ export default function Form() {
         password: '',
         TOS: false,
     }
-    const initialUsername = []
+
     const initialDisabled = true
     //~~~~~~~~~~~~~~~~~~STATES~~~~~~~~~~~~~~~~~~\\
-
     const [disabled, setDisabled] = useState(initialDisabled)
-    const [formState, setFormState] = useState(initialFormState)
+    const [formState, setFormState] = useState(initialFormState);
+
+    // const [disabled, setDisabled] = useState(initialDisabled)
+    // const [formState, setFormState] = useState(initialFormState)
     const [errors, setErrors] = useState(initialError)
     //~~~~~~~~~~~~~~~~~~start of post~~~~~~~~~~~~~~~~~~\\
 
     const postNewUsername = newUsername => {
 
-        axios.post('https://cors-anywhere.herokuapp.com/https://saltiest-hacker-lambda.herokuapp.com/api/auth/register', newUsername)
+        axios.post('https://cors-anywhere.herokuapp.com/https://saltiest-hacker-lambda.herokuapp.com/api/auth/register/auth', newUsername)
             .then(res => {
                 push('/')
-                console.log(res)
-
             })
             .catch(err => {
                 console.log(err)
             })
+
     }
 
     //~~~~~~~~~~~~~~~~~~ Event Handlers ~~~~~~~~~~~~~~~~~~\\
@@ -186,17 +185,6 @@ export default function Form() {
                         Already a user?
                 </button>
                 </Link>
-                {/* {username.map(user => {
-                    return (
-                        <div key={user.id}>
-                            <h3> {user.username} </h3>
-                            <h3> {user.email} </h3>
-                        </div>
-                    )
-
-
-                }
-                )} */}
             </div>
         </form>
 
