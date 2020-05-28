@@ -6,14 +6,16 @@ import {
     FETCH_COMMENTS_FAILURE,
     SEARCH_USER_START,
     SEARCH_USER_SUCCESS,
-    SEARCH_USER_FAILURE
+    SEARCH_USER_FAILURE,
+    SAVE_COMMENT
 
 } from '../actions/index'
 
 export const initialState = {
 
     userInfo: null,
-    commentList: []
+    commentList: [],
+    favComments: []
 }
 
 export const appReducer = (state = initialState, action) => {
@@ -41,6 +43,12 @@ export const appReducer = (state = initialState, action) => {
             return {
                 ...state,
                 commentList: action.payload
+            }
+
+        case SAVE_COMMENT:
+            return {
+                ...state,
+                favComments: [...state.favComments, action.payload]
             }
 
         default:

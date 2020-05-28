@@ -1,25 +1,25 @@
 import React, { useState, useEffect } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams, useHistory } from 'react-router-dom'
 import { axiosWithAuth } from '../utils/axiosWithAuth'
 
 //Redux
 import { connect } from 'react-redux'
-import { setUserInfo, deleteUserAccount } from '../store/actions'
+import { setUserInfo, clearUserInfo } from '../store/actions'
 
 const UserSettings = props => {
 
     const { username } = useParams()
 
+    const { push } = useHistory()
+
     const {
         userInfo,
         setUserInfo,
-        deleteUserAccount
+        clearUserInfo
 
     } = props
 
     const initialFormValues = {
-        username: '',
-        email: '',
         old: '',
         new: '',
         confirm: ''
@@ -42,6 +42,17 @@ const UserSettings = props => {
 
     }, [username, setUserInfo])
 
+    useEffect(() => {
+        if (userInfo) {
+            setFormValues({
+                ...formValues,
+                username: userInfo.username,
+                email: userInfo.email
+            })
+        }
+
+    }, [userInfo])
+
     /****************************** CALLBACKS ******************************/
 
     const changeHandler = e => {
@@ -53,41 +64,68 @@ const UserSettings = props => {
 
     const onSubmit = e => {
         e.preventDefault()
+
+        //Check to see if new password and confirm password match
+        if (formValues.new === formValues.confirm) {
+
+            //attempt a login request with the username and old password
+            axiosWithAuth()
+                .post('/auth/login', { username: userInfo.username, password: formValues.old })
+                //if successful then the old password field matched 
+                //the password on the account
+                .then(res => {
+                    console.log('Password check was a success')
+                    //prepare the object for the update
+                    const updatedUser = {
+                        username: userInfo.username,
+                        email: userInfo.email,
+                        password: formValues.confirm
+                    }
+                    //proceed to put() the changes to the server
+                    axiosWithAuth()
+                        .put(`/users/username=${username}`, updatedUser)
+                        .then(res => {
+                            console.log(res)
+                        })
+                        .catch(err => console.log(err.response))
+                })
+                .catch(err => console.log(err.response))
+        }
+        else console.log('Passwords do not match in the new and confirm fields')
     }
 
     const deleteAccount = e => {
         e.preventDefault()
 
-        deleteUserAccount(userInfo.username)
+        axiosWithAuth()
+            .delete(`/users/username=${username}`)
+            .then(res => {
+
+                window.localStorage.removeItem('loggedIn')
+                window.localStorage.removeItem('token')
+
+                clearUserInfo()
+
+                push('/')
+
+            })
+            .catch(err => {
+                console.log(err.response)
+            })
     }
 
     return (
         <div className="container">
-            <div className="user-details">
-                {userInfo &&
-                    <div>
-                        <p>Username: {userInfo.username}</p>
-                        <p>Email: {userInfo.email}</p>
-                    </div>
-                }
-            </div>
-            <form onSubmit={onSubmit}>
+            <Link to={`/dashboard/${username}`}>Back to Dashboard</Link>
+
+            <form className="update-form" onSubmit={onSubmit}>
+                <h2>Update Password</h2>
                 <label>Username:
-                    <input
-                        name="username"
-                        type="text"
-                        onChange={changeHandler}
-                        value={formValues.username}
-                    />
+                <p>{userInfo && userInfo.username}</p>
                 </label>
 
                 <label>Email:
-                    <input
-                        name="email"
-                        type="text"
-                        onChange={changeHandler}
-                        value={formValues.email}
-                    />
+                <p>{userInfo && userInfo.email}</p>
                 </label>
 
                 <label>Old Password:
@@ -108,7 +146,7 @@ const UserSettings = props => {
                     />
                 </label>
 
-                <label>Confirm New Password:
+                <label>Confirm Password:
                     <input
                         name="confirm"
                         type="password"
@@ -117,7 +155,7 @@ const UserSettings = props => {
                     />
                 </label>
 
-                <button>Submit</button>
+                <button>Update</button>
                 <button className="delete-btn" type="button" onClick={deleteAccount}>Delete Account</button>
 
             </form>
@@ -132,4 +170,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { setUserInfo, deleteUserAccount })(UserSettings)
+export default connect(mapStateToProps, { setUserInfo, clearUserInfo })(UserSettings)

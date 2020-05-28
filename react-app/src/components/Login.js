@@ -37,7 +37,7 @@ function Login() {
             .then(res => {
 
                 //Get the username
-                const username = newUsername.username
+                const username = res.data.message.split(' ')[0]
 
                 //Set the token into local storage
                 window.localStorage.setItem('token', JSON.stringify(res.data.token))

@@ -1,8 +1,34 @@
 import React from 'react';
+import { useParams } from 'react-router-dom'
 import SaltRating from './SaltRating'
+import { axiosWithAuth } from '../utils/axiosWithAuth'
+
+//Redux
+import { connect } from 'react-redux'
+import { saveComment } from '../store/actions'
 
 
-const CommentCard = ({ comment }) => {
+const CommentCard = props => {
+
+    const {
+        comment,
+        favComments,
+        saveComment
+
+    } = props
+
+    const { username } = useParams()
+
+    const clickHandler = e => {
+        console.log(comment)
+        axiosWithAuth()
+            .post(`/users/username=${username}/save`, comment)
+            .then(res => {
+                console.log('Saved a comment', res)
+                saveComment(comment)
+            })
+            .catch(err => console.log(err.response))
+    }
 
     return (
         <li className="comment-card">
@@ -11,10 +37,18 @@ const CommentCard = ({ comment }) => {
                 comment.score ? <SaltRating score={comment.score} /> : null
             }
             <p>{comment.text}</p>
+            <button onClick={clickHandler}>+</button>
         </li>
     )
 }
-export default CommentCard
+
+const mapStateToProps = state => {
+    return {
+        favComments: state.appReducer.favComments
+    }
+}
+
+export default connect(mapStateToProps, { saveComment })(CommentCard)
 
 
 
