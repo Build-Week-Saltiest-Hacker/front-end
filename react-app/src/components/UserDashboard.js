@@ -1,22 +1,29 @@
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { connect } from 'react-redux'
-import { handleLogin } from '../store/actions'
 import { axiosWithAuth } from '../utils/axiosWithAuth'
+
+//Redux
+import { connect } from 'react-redux'
+import { setUserInfo } from '../store/actions'
 
 const UserDashboard = props => {
     const { username } = useParams()
+
+    const {
+        setUserInfo
+
+    } = props
 
     useEffect(() => {
 
         axiosWithAuth()
             .get(`/users/username=${username}`)
             .then(res => {
-                console.log(res)
+                setUserInfo(res.data)
             })
             .catch(err => console.log(err.respone))
 
-    }, [username])
+    }, [username, setUserInfo])
 
 
     return (
@@ -39,9 +46,8 @@ const UserDashboard = props => {
 const mapStateToProps = state => {
 
     return {
-        userInfo: state.appReducer.userInfo,
-        isFetching: state.appReducer.isFetching
+        userInfo: state.appReducer.userInfo
     }
 }
 
-export default connect(mapStateToProps, { handleLogin })(UserDashboard)
+export default connect(mapStateToProps, { setUserInfo })(UserDashboard)

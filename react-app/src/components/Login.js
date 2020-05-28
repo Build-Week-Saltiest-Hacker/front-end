@@ -34,7 +34,7 @@ function Login() {
 
         axios.post('https://cors-anywhere.herokuapp.com/https://saltiest-hacker-lambda.herokuapp.com/api/auth/login', newUsername)
             .then(res => {
-                console.log({ res })
+
                 //Get the username
                 const username = res.data.message.split(' ')[0]
 
