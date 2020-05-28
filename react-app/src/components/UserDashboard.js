@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import { axiosWithAuth } from '../utils/axiosWithAuth'
 import { useLocalStorage } from '../hooks/useLocalStorage'
 
-import CommentCard from './CommentCard'
+import CommentCard from './commentCard'
 
 //Redux
 import { connect } from 'react-redux'
