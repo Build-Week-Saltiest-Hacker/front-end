@@ -92,10 +92,10 @@ const UserDashboard = props => {
     /******************************** JSX ********************************/
     return (
         <div className="container">
-            <Link to={`/settings/${username}`}>Settings</Link>
+            <Link className="settings" to={`/settings/${username}`}>Settings</Link>
 
             <form className="search-comments" onSubmit={onSubmit}>
-                <label> Search by Hacker News user:&nbsp;
+                <label>Hacker News user:&nbsp;
                     <input
                         type="text"
                         placeholder="Mine for salt"

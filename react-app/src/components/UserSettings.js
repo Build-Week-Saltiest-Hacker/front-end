@@ -115,7 +115,7 @@ const UserSettings = props => {
 
     return (
         <div className="container">
-            <Link to={`/dashboard/${username}`}>Back to Dashboard</Link>
+            <Link className="settings" to={`/dashboard/${username}`}>Back to Dashboard</Link>
 
             <form className="update-form" onSubmit={onSubmit}>
                 <h2>Update Password</h2>

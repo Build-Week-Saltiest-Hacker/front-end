@@ -1,8 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
 * {
     box-sizing: border-box;
     max-width: 100%;
     margin: 0;
     padding: 0;
+    line-height: 1.5;
+}
+
+body {
+    font-family: 'Share Tech Mono', monospace;
+    background-image: url(https://steamuserimages-a.akamaihd.net/ugc/929299366847264857/2BA4A88A8BAE058D21FB89C0BD5DA71FBECEE16D/);
+    color: #adff2f;
 }
 
 .navbar {
@@ -16,8 +25,9 @@
     height: 40px;
     margin: 0;
     padding: 1%;
-    background: darkblue;
+    background: #068f06;
     color: #fff;
+    z-index: 5;
 }
 
 .navbar a {
@@ -30,14 +40,25 @@
     flex-wrap: wrap;
     width: 80%;
     margin: 5% auto;
+    background: #000;
+    opacity: 0.9;
 }
 
 .form.container, .update-form {
     width: 40%;
-    border: 1px solid black;
+    margin: 10% auto;
+    border: 1px solid #adff2f;
     padding: 2%;
     border-radius: 7px;
     box-shadow: 1px 1px 6px #444;
+}
+
+input {
+    display: block;
+    background: #000;
+    border: 1px solid #adff2f;
+    outline: none;
+    color: #adff2f;
 }
 
 .update-form input {
@@ -46,12 +67,14 @@
 
 button {
     margin: 5% 2% 0;
-    border: 1px solid #000;
+    border: 1px solid #adff2f;
     border-radius: 7px;
     padding: 1% 2%;
     box-shadow: 1px 1px 6px #444;
     text-align: center;
     outline: none;
+    background: #000;
+    color: #adff2f;
 }
 
 button:hover {
@@ -79,6 +102,10 @@ button:active {
     margin: 5%;
 }
 
+.search-comments input {
+    display: inline;
+}
+
 ul {
     list-style: none;
     text-align: left;
@@ -89,7 +116,7 @@ ul {
     flex-flow: row wrap;
     justify-content: space-between;
     margin: 5% 0;
-    border: 1px solid black;
+    border: 1px solid #adff2f;
     padding: 2%;
     box-shadow: 1px 1px 6px #444;
 }
@@ -111,16 +138,28 @@ ul {
 .salt-rating {
     max-width: 70px;
     width: 25%;
-    border: 1px solid black;
+    border: 1px solid #adff2f;
     border-radius: 7px;
     padding: 1%;
-    background: #ddd;
+    background: #000;
     text-align: center;
 }
 
 .no-comments {
     margin: 5% 0;
-    border: 1px solid black;
+    border: 1px solid #adff2f;
     padding: 2%;
     text-align: center;
+}
+
+.settings {
+    position: absolute;
+    top: 50px;
+    left: 15px;
+    border-radius: 7px;
+    padding: 1% 2%;
+    color: #fff;
+    background: #068f06;
+    text-decoration: none;
+    font-size: 1.2rem;
 }
