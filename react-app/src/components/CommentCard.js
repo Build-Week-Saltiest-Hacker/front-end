@@ -34,7 +34,7 @@ const CommentCard = props => {
     return (
 
         <li className={favorite ? 'favorite comment-card' : 'comment-card'}>
-            <h3>{comment.username}</h3>
+            <h3>{comment.hn_username}</h3>
 
             <SaltRating score={comment.score} />
 
