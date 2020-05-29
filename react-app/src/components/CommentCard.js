@@ -32,6 +32,7 @@ const CommentCard = props => {
     }
 
     return (
+
         <li className={favorite ? 'favorite comment-card' : 'comment-card'}>
             <h3>{comment.username}</h3>
 
