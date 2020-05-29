@@ -7,7 +7,8 @@ import {
     SEARCH_USER_START,
     SEARCH_USER_SUCCESS,
     SEARCH_USER_FAILURE,
-    SAVE_COMMENT
+    SAVE_COMMENT,
+    FETCH_FAV_SUCCESS
 
 } from '../actions/index'
 
@@ -37,6 +38,12 @@ export const appReducer = (state = initialState, action) => {
             return {
                 ...state,
                 commentList: action.payload
+            }
+
+        case FETCH_FAV_SUCCESS:
+            return {
+                ...state,
+                favComments: action.payload
             }
 
         case SEARCH_USER_SUCCESS:

@@ -48,7 +48,7 @@ button {
     margin: 5% 2% 0;
     border: 1px solid #000;
     border-radius: 7px;
-    padding: 2%;
+    padding: 1% 2%;
     box-shadow: 1px 1px 6px #444;
     text-align: center;
     outline: none;
@@ -90,7 +90,7 @@ ul {
     justify-content: space-between;
     margin: 5% 0;
     border: 1px solid black;
-    padding: 1% 2%;
+    padding: 2%;
     box-shadow: 1px 1px 6px #444;
 }
 
@@ -104,6 +104,10 @@ ul {
     padding: 2%;
 }
 
+.favorite.comment-card button {
+    display: none;
+}
+
 .salt-rating {
     max-width: 70px;
     width: 25%;
@@ -111,5 +115,12 @@ ul {
     border-radius: 7px;
     padding: 1%;
     background: #ddd;
+    text-align: center;
+}
+
+.no-comments {
+    margin: 5% 0;
+    border: 1px solid black;
+    padding: 2%;
     text-align: center;
 }
