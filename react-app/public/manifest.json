@@ -11,6 +11,11 @@
       "src": "salty-192.png",
       "type": "image/png",
       "sizes": "192x192"
+    },
+    {
+      "src": "salty-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
     }
   ],
   "start_url": ".",
