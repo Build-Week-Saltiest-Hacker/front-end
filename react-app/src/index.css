@@ -61,6 +61,11 @@ input {
     color: #adff2f;
 }
 
+input::placeholder {
+    color: #adff2f;
+    opacity: 1;
+}
+
 .update-form input {
     display: block;
 }
@@ -129,6 +134,7 @@ ul {
     width: 100%;
     margin: 2%;
     padding: 2%;
+    word-break: break-word;
 }
 
 .favorite.comment-card button {
