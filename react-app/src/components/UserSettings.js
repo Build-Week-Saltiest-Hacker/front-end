@@ -31,6 +31,7 @@ const UserSettings = props => {
     const [formValues, setFormValues] = useState(initialFormValues)
 
     /**************************** SIDE EFFECTS ****************************/
+    //load user info on page load
     useEffect(() => {
 
         axiosWithAuth()
@@ -41,17 +42,6 @@ const UserSettings = props => {
             .catch(err => console.log(err.respone))
 
     }, [username, setUserInfo])
-
-    useEffect(() => {
-        if (userInfo) {
-            setFormValues({
-                ...formValues,
-                username: userInfo.username,
-                email: userInfo.email
-            })
-        }
-
-    }, [userInfo])
 
     /****************************** CALLBACKS ******************************/
 
@@ -100,12 +90,14 @@ const UserSettings = props => {
         axiosWithAuth()
             .delete(`/users/username=${username}`)
             .then(res => {
-
+                //remove logged in items from local storage
                 window.localStorage.removeItem('loggedIn')
                 window.localStorage.removeItem('token')
 
+                //remove userInfo from state
                 clearUserInfo()
 
+                //push to login page
                 push('/')
 
             })

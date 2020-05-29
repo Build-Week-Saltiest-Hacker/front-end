@@ -12,6 +12,7 @@ const CommentCard = props => {
 
     const {
         comment,
+        favorite,
         favComments,
         saveComment
 
@@ -31,13 +32,14 @@ const CommentCard = props => {
     }
 
     return (
-        <li className="comment-card">
+        <li className={favorite ? 'favorite comment-card' : 'comment-card'}>
             <h3>{comment.username}</h3>
-            {
-                comment.score ? <SaltRating score={comment.score} /> : null
-            }
+
+            <SaltRating score={comment.score} />
+
             <p>{comment.text}</p>
-            <button onClick={clickHandler}>+</button>
+
+            <button onClick={clickHandler}>Save</button>
         </li>
     )
 }

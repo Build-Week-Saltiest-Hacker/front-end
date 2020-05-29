@@ -34,6 +34,23 @@ export const fetchComments = () => {
     }
 }
 
+export const FETCH_FAV_START = 'FETCH_FAV_START'
+export const FETCH_FAV_SUCCESS = 'FETCH_FAV_SUCCESS'
+export const FETCH_FAV_FAILURE = 'FETCH_FAV_FAILURE'
+export const fetchFavComments = () => {
+    return dispatch => {
+        dispatch({ type: FETCH_FAV_START })
+
+        axiosWithAuth()
+            .get()
+            .then(res => {
+                console.log(res)
+                dispatch({ type: FETCH_FAV_SUCCESS, payload: res.data })
+            })
+            .catch(err => console.log(err.response))
+    }
+}
+
 export const SEARCH_USER_START = 'SEARCH_USER_START'
 export const SEARCH_USER_SUCCESS = 'SEARCH_USER_SUCCESS'
 export const SEARCH_USER_FAILURE = 'SEARCH_USER_FAILURE'
