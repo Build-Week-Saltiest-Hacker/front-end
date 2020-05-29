@@ -22,13 +22,14 @@ const CommentCard = props => {
 
     const clickHandler = e => {
         console.log(comment)
-        axiosWithAuth()
+        /* axiosWithAuth()
             .post(`/users/username=${username}/save`, comment)
             .then(res => {
                 console.log('Saved a comment', res)
                 saveComment(comment)
             })
-            .catch(err => console.log(err.response))
+            .catch(err => console.log(err.response)) */
+        saveComment(comment)
     }
 
     return (
