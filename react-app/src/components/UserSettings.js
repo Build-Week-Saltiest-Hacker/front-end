@@ -73,9 +73,16 @@ const UserSettings = props => {
                     }
                     //proceed to put() the changes to the server
                     axiosWithAuth()
-                        .put(`/users/username=${username}`, updatedUser)
+                        .put('https://reqres.in/api/users/2', {
+                            name: "morpheus",
+                            job: "zion resident"
+                        })
+                        //.put(`/users/username=${username}`, updatedUser)
                         .then(res => {
                             console.log(res)
+                            alert(`Updated at ${res.data.updatedAt}`)
+
+                            push(`/dashboard/${username}`)
                         })
                         .catch(err => console.log(err.response))
                 })
